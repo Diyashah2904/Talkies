@@ -52,4 +52,17 @@ export const navigations = [
     url: "/profile",
     count: 0,
   },
+  {
+    id: 4,
+    name: "Direct",
+    icon: <IconSend />,
+    url: "/",
+  },
+  {
+    id: 5,
+    name: "Chats",
+    icon: <IconMessage />,
+    url: "/chat",
+    count:0,
+  },
 ];

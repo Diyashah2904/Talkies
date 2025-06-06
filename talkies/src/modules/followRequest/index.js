@@ -5,7 +5,6 @@ import Button from "../../components/Button";
 import { IconHome } from "@tabler/icons-react";
 const FollowRequest = () => {
   const [User, setUser] = useState({});
-  const darkMode = localStorage.getItem("dark") === "true";
   const navigate = useNavigate();
   useEffect(() => {
     const fetchUser = async () => {
@@ -49,16 +48,8 @@ const FollowRequest = () => {
     }
   };
   return (
-    <div
-      className={`${
-        darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-white"
-      }`}
-    >
-      <div
-        className={`flex items-center w-[100%] justify-center pb-[7px] fixed shadow-lg top-0 ${
-          darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-[#dde3f6]"
-        }`}
-      >
+   <div className="bg-[#dde3f6] flex flex-col items-center">
+      <div className="flex items-center w-[100%] h-[100%] justify-center border-b pb-[7px]">
         <Button
           label={
             <div className="flex">
@@ -66,44 +57,40 @@ const FollowRequest = () => {
               <p>Home</p>
             </div>
           }
-          className="fixed top-2 left-2 mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
+          className="fixed top-2 left-2 bg-[#7684cf] hover:bg-[#4f5ebb] rounded-2xl font-sans text-xl"
           onChange={() => navigate("/")}
         />
         <h1 className="font-bold text-[30px]">Follow Requests</h1>
       </div>
-      {User?.followRequest?.map(({ _id, profilePic, userName }) => {
+       {User?.followRequest?.map(({ _id, profilePic, userName }) => {
         return (
-          <div
-            className={`flex flex-col border mt-[5%] ml-[30%] mr-[30%] ${
-              darkMode
-                ? "bg-[#0a0f27] bg-opacity-90 text-white"
-                : "bg-[#dde3f6]"
-            }`}
-          >
+          <div className="flex flex-col">
             <div
-              className="h-[55px] flex relative right-[2%] justify-center items-center cursor-pointer"
-              onClick={() => {
-                navigate(`/user/${userName}`);
-              }}
-            >
-              <img
-                src={profilePic || dft}
-                alt="ProfilePic"
-                className="h-[50px] w-[50px] rounded-3xl"
-              ></img>
-              <p className="ml-[20px] text-[25px]">{userName}</p>
-            </div>
-            <div className="flex justify-center items-center">
-              <Button
-                className="mb-4 ml-4 rounded-3xl bg-[#8d91f4] hover:bg-[#525197]"
-                label="Accept"
-                onChange={() => handleAccept(_id)}
-              ></Button>
-              <Button
-                className="mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
-                label="Reject"
-                onChange={() => handleReject(_id)}
-              ></Button>
+                className="h-[55px] flex border-b cursor-pointer"
+                onClick={() => {
+                  navigate(`/user/${userName}`);
+                }}
+              >
+                <img
+                  src={profilePic || dft}
+                  alt="ProfilePic"
+                  className="h-[50px] w-[50px] rounded-3xl relative left-[5px]"
+                ></img>
+                <p className="flex justify-center items-center ml-[20px] text-[25px]">
+                  {userName}
+                </p>
+              </div>
+              <div className="flex justify-center items-center">
+            <Button
+              className="mb-4 ml-4 rounded-3xl bg-[#8d91f4] hover:bg-[#525197]"
+              label="Accept"
+              onChange={() => handleAccept(_id)}
+            ></Button>
+            <Button
+              className="mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
+              label="Reject"
+              onChange={() => handleReject(_id)}
+            ></Button>
             </div>
           </div>
         );

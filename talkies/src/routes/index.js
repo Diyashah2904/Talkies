@@ -13,6 +13,7 @@ import CommentShow from "../modules/commentShow";
 import Search from "../modules/search";
 import Setting from "../modules/Settings";
 import FollowRequest from "../modules/followRequest";
+import Chat from "../modules/chat";
 const PrivateRoute = ({ children }) => {
   const isUserLoggedIn = window.localStorage.getItem("user:token") || false;
   const isFormPages = window.location.pathname.includes("account");
@@ -110,6 +111,12 @@ const Routes = () => {
       name: "followRequest",
       component: <FollowRequest />,
       path: "/followRequest",
+    },
+    {
+      id: 15,
+      name: "chat",
+      component: <Chat />,
+      path: "/chat",
     },
   ];
   return (

@@ -9,8 +9,8 @@ const Search = () => {
   console.log(location.state);
   const Found = location.state.userFromUserName.length > 0 ? true : false;
   return (
-    <div className="flex flex-col items-center">
-      <div className="flex items-center w-[100%] justify-center border-b pb-[7px]">
+    <div className="bg-[#dde3f6] flex flex-col items-center">
+      <div className="flex items-center w-[100%] h-[100%] justify-center border-b pb-[7px]">
         <Button
           label={
             <div className="flex">
@@ -18,17 +18,17 @@ const Search = () => {
               <p>Home</p>
             </div>
           }
-          className="fixed top-2 left-2"
+          className="fixed top-2 left-2 bg-[#7684cf] hover:bg-[#4f5ebb] rounded-2xl font-sans text-xl"
           onChange={() => navigate("/")}
         />
         <h1 className="font-bold text-[30px]">Searched Account</h1>
       </div>
-      <div className="w-[100%] flex flex-col justify-center items-center">
+      <div className="flex flex-col">
         {Found ? (
           location.state.userFromUserName.map(({ userName, profilePic }) => {
             return (
               <div
-                className="h-[55px] flex border-b justify-center cursor-pointer"
+                className="h-[55px] flex border-b cursor-pointer"
                 onClick={() => {
                   navigate(`/user/${userName}`);
                 }}

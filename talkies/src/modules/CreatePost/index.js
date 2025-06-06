@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
-import { IconHome } from "@tabler/icons-react";
 const CreatePost = () => {
   const [data, setdata] = useState({
     caption: "",
@@ -10,7 +9,6 @@ const CreatePost = () => {
     img: "",
   });
   const [url, seturl] = useState("");
-  const darkMode = localStorage.getItem("dark") === "true";
   const navigate = useNavigate();
   const uploadImage = async () => {
     const formData = new FormData();
@@ -55,30 +53,10 @@ const CreatePost = () => {
     }
   };
   return (
-    <div
-      className={`flex ${
-        darkMode ? "bg-[#0a0f27]" : "bg-[#dde3f6]"
-      } justify-center items-center h-screen`}
-    >
-      <div
-        className={`flex items-center w-[100%] justify-center border-b pb-[7px] fixed shadow-lg top-0 ${
-          darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-[#dde3f6]"
-        }`}
-      >
-        <Button
-          label={
-            <div className="flex">
-              <IconHome />
-              <p>Home</p>
-            </div>
-          }
-          className="fixed top-2 left-2 mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
-          onChange={() => navigate("/")}
-        />
-        <h1 className="font-bold text-[30px]">Your Commented Posts</h1>
-      </div>
-      <div className="w-[800px] mt-[10%] h-[600px] p-6">
+    <div className="flex bg-[#dde3f6] justify-center items-center h-screen">
+      <div className="w-[800px] h-[600px] p-6">
         <form onSubmit={(e) => handleSubmit(e)}>
+          <h1 className="text-2xl pb-4 font-bold text-[#4f5ebb]">Create Post</h1>
           <Input
             placeholder="Captions..."
             name="title"
