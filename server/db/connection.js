@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose");
-const password = encodeURIComponent("qwertyasdzx");
-const uri = `mongodb+srv://RavijPatel:${password}@cluster0.izspskc.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0`;
+require("dotenv").config(); // Load .env variables
+
+const uri = process.env.MONGO_URI;
 mongoose
   .connect(uri, {
     useNewUrlParser: true,
