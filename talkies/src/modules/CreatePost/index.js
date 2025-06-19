@@ -3,12 +3,12 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { useNavigate } from "react-router-dom";
 const CreatePost = () => {
-  const [data, setdata] = useState({
+  const [data, setData] = useState({
     caption: "",
     desc: "",
     img: "",
   });
-  const [url, seturl] = useState("");
+  const [url, setUrl] = useState("");
   const navigate = useNavigate();
   const uploadImage = async () => {
     const formData = new FormData();
@@ -29,7 +29,7 @@ const CreatePost = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { secure_url } = await uploadImage();
-    seturl(secure_url);
+    setUrl(secure_url);
     const response = await fetch("http://localhost:8000/api/new-post", {
       method: "POST",
       headers: {
@@ -62,20 +62,20 @@ const CreatePost = () => {
             name="title"
             className="py-4 rounded-2xl"
             value={data.caption}
-            onChange={(e) => setdata({ ...data, caption: e.target.value })}
+            onChange={(e) => setData({ ...data, caption: e.target.value })}
           />
           <textarea
             rows={10}
             className="w-full border shadow py-4 px-4 resize-none rounded-2xl"
             placeholder="Description"
             value={data.desc}
-            onChange={(e) => setdata({ ...data, desc: e.target.value })}
+            onChange={(e) => setData({ ...data, desc: e.target.value })}
           />
           <Input
             type="file"
             name="image"
             className="py-4 hidden"
-            onChange={(e) => setdata({ ...data, img: e.target.files[0] })}
+            onChange={(e) => setData({ ...data, img: e.target.files[0] })}
             isRequired={false}
           />
           <label

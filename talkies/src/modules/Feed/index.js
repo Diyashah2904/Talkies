@@ -12,10 +12,10 @@ import Input from "../../components/Input";
 import Button from "../../components/Button";
 const Feed = () => {
   const navigate = useNavigate();
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
   const [User, setUser] = useState({});
-  const [commentOn, setcommentOn] = useState(false);
-  const [msg, setmsg] = useState("");
+  const [commentOn, setCommentOn] = useState(false);
+  const [msg, setMsg] = useState("");
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("http://localhost:8000/api/allPosts", {
@@ -25,10 +25,9 @@ const Feed = () => {
           Authorization: `Bearer ${localStorage.getItem("user:token")}`,
         },
       });
-      const data1 = await response.json();
-      setdata(data1.post1);
-      console.log(data1.post1);
-      setUser(data1.user);
+      const postsAndUser = await response.json();
+      setData(postsAndUser.post1);
+      setUser(postsAndUser.user);
     };
     fetchPosts();
   }, []);
@@ -47,7 +46,7 @@ const Feed = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +66,7 @@ const Feed = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +86,7 @@ const Feed = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -107,7 +106,7 @@ const Feed = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -126,7 +125,7 @@ const Feed = () => {
       if (i === index) return updatedPost;
       else return post;
     });
-    setdata(updatePost);
+    setData(updatePost);
   };
   return (
     <div>
@@ -223,7 +222,7 @@ const Feed = () => {
                 <div
                   className="flex cursor-pointer"
                   onClick={() => {
-                    setcommentOn(!commentOn);
+                    setCommentOn(!commentOn);
                   }}
                 >
                   <IconMessage />
@@ -265,7 +264,7 @@ const Feed = () => {
                     value={msg}
                     className="rounded-3xl"
                     onChange={(e) => {
-                      setmsg(e.target.value);
+                      setMsg(e.target.value);
                     }}
                   />
                   <Button

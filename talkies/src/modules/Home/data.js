@@ -1,12 +1,10 @@
 import {
   IconArtboard,
   IconBookmark,
-  IconGridDots,
   IconHeart,
   IconHome,
   IconMessage,
   IconSend,
-  IconSettings,
   IconUser,
 } from "@tabler/icons-react";
 export const stats = [
@@ -63,6 +61,6 @@ export const navigations = [
     name: "Chats",
     icon: <IconMessage />,
     url: "/chat",
-    count:0,
+    count: 0,
   },
 ];

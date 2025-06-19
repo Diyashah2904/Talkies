@@ -12,31 +12,28 @@ import {
   IconMessage,
   IconPlus,
   IconSearch,
-  IconShare,
 } from "@tabler/icons-react";
 import { navigations, stats } from "./data";
 import { GridLoader } from "react-spinners";
-import "./home.css"; // Import CSS for styling
+import "./home.css";
 
 const Home = () => {
   const navigate = useNavigate();
-  const [darkMode, setDarkMode] = useState(false); // State for dark mode
-
-  // Toggle dark mode
+  const [darkMode, setDarkMode] = useState(false);
   const toggleDarkMode = () => {
     setDarkMode(!darkMode);
-    localStorage.setItem('dark',JSON.stringify(!darkMode));
+    localStorage.setItem("dark", JSON.stringify(!darkMode));
   };
-  const [isPrivate, setisPrivate] = useState(false);
-  const [commentOn, setcommentOn] = useState(false);
-  const [data, setdata] = useState([]);
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [commentOn, setCommentOn] = useState(false);
+  const [data, setData] = useState([]);
   const [User, setUser] = useState({});
-  const [loading, setloading] = useState(false);
-  const [msg, setmsg] = useState("");
-  const [search, setsearch] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [msg, setMsg] = useState("");
+  const [search, setSearch] = useState("");
   useEffect(() => {
     const fetchPosts = async () => {
-      setloading(true);
+      setLoading(true);
       const response = await fetch("http://localhost:8000/api/posts", {
         method: "GET",
         headers: {
@@ -45,14 +42,12 @@ const Home = () => {
         },
       });
       const data1 = await response.json();
-      console.log(data1);
-      setdata(data1.post1);
-      console.log(data);
+      setData(data1.post1);
       setUser(data1.user);
-      setloading(false);
+      setLoading(false);
     };
     fetchPosts();
-    setDarkMode(Boolean(localStorage.getItem('dark')));
+    setDarkMode(Boolean(localStorage.getItem("dark")));
   }, []);
   const handleSearch = async () => {
     try {
@@ -73,7 +68,6 @@ const Home = () => {
           },
         });
       }
-      console.log(res);
     } catch (error) {
       console.log(error);
     }
@@ -93,7 +87,7 @@ const Home = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -113,7 +107,7 @@ const Home = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -133,7 +127,7 @@ const Home = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -153,7 +147,7 @@ const Home = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -172,7 +166,7 @@ const Home = () => {
       if (i === index) return updatedPost;
       else return post;
     });
-    setdata(updatePost);
+    setData(updatePost);
   };
   const {
     userName = "",
@@ -180,7 +174,7 @@ const Home = () => {
     following = [],
     posts = [],
   } = User || {};
-   const makeItPrivate = async () => {
+  const makeItPrivate = async () => {
     try {
       const response = await fetch("http://localhost:8000/api/makePrivate", {
         method: "PUT",
@@ -191,16 +185,19 @@ const Home = () => {
         body: JSON.stringify({ isPrivate: isPrivate }),
       });
       const user1 = await response.json();
-      console.log(user1.user.private);
       setUser(user1.user);
-      setisPrivate(user1?.user.private);
+      setIsPrivate(user1?.user.private);
     } catch (error) {
       console.log(error);
     }
   };
   return (
     <div className="h-screen flex overflow-hidden">
-      <div className={`w-[20%] flex flex-col ${darkMode ? "bg-[#0a0f27] text-white" : "bg-[#dde3f6]"}`}>
+      <div
+        className={`w-[20%] flex flex-col ${
+          darkMode ? "bg-[#0a0f27] text-white" : "bg-[#dde3f6]"
+        }`}
+      >
         {loading ? (
           <div className="h-[100%] flex justify-center items-center">
             <GridLoader />
@@ -248,11 +245,10 @@ const Home = () => {
                 to={url}
                 key={id}
                 className={`flex items-center h-[40px] rounded-2xl px-4 ${
-  darkMode 
-    ? "text-white hover:bg-[#C9D2F6] hover:text-black"
-    : "bg-[#dde3f6] text-black hover:bg-[#C9D2F6]"
-}`}
-
+                  darkMode
+                    ? "text-white hover:bg-[#C9D2F6] hover:text-black"
+                    : "bg-[#dde3f6] text-black hover:bg-[#C9D2F6]"
+                }`}
               >
                 {icon}
                 <p className="ml-2">{name}</p>
@@ -269,29 +265,56 @@ const Home = () => {
               <IconLock />
               <p className="ml-2">Account</p>
             </div>
-<label className="relative inline-flex items-center cursor-pointer ml-5">
-  <input className="sr-only peer" value="" type="checkbox" onChange={makeItPrivate} />
-  <div className="group peer ring-0 bg-gray-50 border-2 border-gray-900 rounded-full outline-none duration-700 after:duration-200 w-16 h-8 shadow-md peer-checked:bg-gradient-to-r peer-focus:outline-none after:content-[''] after:rounded-full after:absolute after:bg-gray-900 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 peer-checked:after:translate-x-6 peer-hover:after:scale-95">
+            <label className="relative inline-flex items-center cursor-pointer ml-5">
+              <input
+                className="sr-only peer"
+                value=""
+                type="checkbox"
+                onChange={makeItPrivate}
+              />
+              <div className="group peer ring-0 bg-gray-50 border-2 border-gray-900 rounded-full outline-none duration-700 after:duration-200 w-16 h-8 shadow-md peer-checked:bg-gradient-to-r peer-focus:outline-none after:content-[''] after:rounded-full after:absolute after:bg-gray-900 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 peer-checked:after:translate-x-6 peer-hover:after:scale-95">
+                <svg
+                  y="0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0"
+                  width="100"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="xMidYMid meet"
+                  height="100"
+                  className="absolute top-1 left-8 fill-blue-600 w-6 h-6"
+                >
+                  <path
+                    d="M50,18A19.9,19.9,0,0,0,30,38v8a8,8,0,0,0-8,8V74a8,8,0,0,0,8,8H70a8,8,0,0,0,8-8V54a8,8,0,0,0-8-8H38V38a12,12,0,0,1,23.6-3,4,4,0,1,0,7.8-2A20.1,20.1,0,0,0,50,18Z"
+                    className="svg-fill-primary"
+                  ></path>
+                </svg>
 
-    <svg y="0" xmlns="http://www.w3.org/2000/svg" x="0" width="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" height="100" className="absolute top-1 left-8 fill-blue-600 w-6 h-6">
-      <path d="M50,18A19.9,19.9,0,0,0,30,38v8a8,8,0,0,0-8,8V74a8,8,0,0,0,8,8H70a8,8,0,0,0,8-8V54a8,8,0,0,0-8-8H38V38a12,12,0,0,1,23.6-3,4,4,0,1,0,7.8-2A20.1,20.1,0,0,0,50,18Z" className="svg-fill-primary"></path>
-    </svg>
-
-    <svg y="0" xmlns="http://www.w3.org/2000/svg" x="0" width="100" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid meet" height="100" className="absolute top-1 left-1 fill-red-600 w-6 h-6">
-      <path fillRule="evenodd" d="M30,46V38a20,20,0,0,1,40,0v8a8,8,0,0,1,8,8V74a8,8,0,0,1-8,8H30a8,8,0,0,1-8-8V54A8,8,0,0,1,30,46Zm32-8v8H38V38a12,12,0,0,1,24,0Z"></path>
-    </svg>
-  </div>
-</label>
-
-</div>
+                <svg
+                  y="0"
+                  xmlns="http://www.w3.org/2000/svg"
+                  x="0"
+                  width="100"
+                  viewBox="0 0 100 100"
+                  preserveAspectRatio="xMidYMid meet"
+                  height="100"
+                  className="absolute top-1 left-1 fill-red-600 w-6 h-6"
+                >
+                  <path
+                    fillRule="evenodd"
+                    d="M30,46V38a20,20,0,0,1,40,0v8a8,8,0,0,1,8,8V74a8,8,0,0,1-8,8H30a8,8,0,0,1-8-8V54A8,8,0,0,1,30,46Zm32-8v8H38V38a12,12,0,0,1,24,0Z"
+                  ></path>
+                </svg>
+              </div>
+            </label>
+          </div>
         </div>
         <div className="h-[15%] pt-10">
           <div
             className={`ml-12 cursor-pointer flex items-center h-[40px] rounded-2xl px-4 ${
-  darkMode 
-    ? "text-white hover:bg-[#C9D2F6] hover:text-black"
-    : "bg-[#dde3f6] text-black hover:bg-[#C9D2F6]"
-}`}
+              darkMode
+                ? "text-white hover:bg-[#C9D2F6] hover:text-black"
+                : "bg-[#dde3f6] text-black hover:bg-[#C9D2F6]"
+            }`}
             onClick={() => {
               localStorage.clear();
               navigate("/account/signin");
@@ -302,15 +325,23 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className={`w-[60%] h-full overflow-scroll scrollbar-hide ${darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-white"}`}>
-        <div className={`h-[75px] flex justify-center items-center sticky top-0 shadow-md ${darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-[#dde3f6]"}`}>
+      <div
+        className={`w-[60%] h-full overflow-scroll scrollbar-hide ${
+          darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-white"
+        }`}
+      >
+        <div
+          className={`h-[75px] flex justify-center items-center sticky top-0 shadow-md ${
+            darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-[#dde3f6]"
+          }`}
+        >
           <div className="flex justify-center items-center mt-3">
             <Input
               placeholder="Search"
               className="rounded-3xl"
               value={search}
               onChange={(e) => {
-                setsearch(e.target.value);
+                setSearch(e.target.value);
               }}
             />
             <Button
@@ -357,7 +388,13 @@ const Home = () => {
               const isAlreadyLiked =
                 likes.length > 0 && likes.includes(User._id);
               return (
-                <div className={`w-[75%] mx-auto mt-20 p-8 ${darkMode ? "bg-[#0a0f27] bg-opacity-90 text-white" : "bg-[#dde3f6]"}`}>
+                <div
+                  className={`w-[75%] mx-auto mt-20 p-8 ${
+                    darkMode
+                      ? "bg-[#0a0f27] bg-opacity-90 text-white"
+                      : "bg-[#dde3f6]"
+                  }`}
+                >
                   <div
                     className=" flex items-center pb-4 mb-4 cursor-pointer"
                     onClick={() =>
@@ -422,7 +459,7 @@ const Home = () => {
                     <div
                       className="flex cursor-pointer"
                       onClick={() => {
-                        setcommentOn(!commentOn);
+                        setCommentOn(!commentOn);
                       }}
                     >
                       <IconMessage />
@@ -460,7 +497,7 @@ const Home = () => {
                         value={msg}
                         className="rounded-3xl"
                         onChange={(e) => {
-                          setmsg(e.target.value);
+                          setMsg(e.target.value);
                         }}
                       />
                       <Button
@@ -488,7 +525,11 @@ const Home = () => {
           )
         )}
       </div>
-      <div className={ `w-[20%]  ${darkMode ? "bg-[#0a0f27] text-white" : "bg-[#dde3f6]"} overflow-scroll scrollbar-hide`}>
+      <div
+        className={`w-[20%]  ${
+          darkMode ? "bg-[#0a0f27] text-white" : "bg-[#dde3f6]"
+        } overflow-scroll scrollbar-hide`}
+      >
         <div className="h-[30%]">
           <img src={logo} alt="Logo" className="object-contain"></img>
         </div>
@@ -498,20 +539,26 @@ const Home = () => {
               <Link
                 to={url}
                 key={id}
-                className={`cursor-pointer flex items-center  hover:bg-[#C9D2F6] ${darkMode ? "text-white hover:text-black" : "text-black"} h-[40px] rounded-2xl px-4`}
+                className={`cursor-pointer flex items-center  hover:bg-[#C9D2F6] ${
+                  darkMode ? "text-white hover:text-black" : "text-black"
+                } h-[40px] rounded-2xl px-4`}
               >
                 {icon}
                 <p className="ml-2">{name}</p>
-              </Link> 
+              </Link>
             );
           })}
         </div>
         <div className="h-[15%] flex items-center w-[100%] justify-evenly">
           <p>Dark Mode</p>
-               <label className="switch">
-      <input type="checkbox" checked={darkMode} onChange={toggleDarkMode} />
-      <span className="slider"></span>
-    </label>
+          <label className="switch">
+            <input
+              type="checkbox"
+              checked={darkMode}
+              onChange={toggleDarkMode}
+            />
+            <span className="slider"></span>
+          </label>
         </div>
       </div>
       {/* Toggle Dark Mode Button */}

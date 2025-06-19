@@ -12,10 +12,10 @@ import dft from "../../images/default.jpeg";
 import Input from "../../components/Input";
 const LikeShow = () => {
   const navigate = useNavigate();
-  const [data, setdata] = useState([]);
+  const [data, setData] = useState([]);
   const [User, setUser] = useState({});
-  const [commentOn, setcommentOn] = useState(false);
-  const [msg, setmsg] = useState("");
+  const [commentOn, setCommentOn] = useState(false);
+  const [msg, setMsg] = useState("");
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch("http://localhost:8000/api/allLikes", {
@@ -27,7 +27,7 @@ const LikeShow = () => {
       });
       const data1 = await response.json();
       console.log(data1);
-      setdata(data1.posts);
+      setData(data1.posts);
       setUser(data1.user);
     };
     fetchPosts();
@@ -47,7 +47,7 @@ const LikeShow = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -67,7 +67,7 @@ const LikeShow = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +87,7 @@ const LikeShow = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -107,7 +107,7 @@ const LikeShow = () => {
         if (i === index) return updatedPost;
         else return post;
       });
-      setdata(updatePost);
+      setData(updatePost);
     } catch (error) {
       console.log(error);
     }
@@ -126,7 +126,7 @@ const LikeShow = () => {
       if (i === index) return updatedPost;
       else return post;
     });
-    setdata(updatePost);
+    setData(updatePost);
   };
   return (
     <div>
@@ -223,7 +223,7 @@ const LikeShow = () => {
                 <div
                   className="flex cursor-pointer"
                   onClick={() => {
-                    setcommentOn(!commentOn);
+                    setCommentOn(!commentOn);
                   }}
                 >
                   <IconMessage />
@@ -265,7 +265,7 @@ const LikeShow = () => {
                     value={msg}
                     className="rounded-3xl"
                     onChange={(e) => {
-                      setmsg(e.target.value);
+                      setMsg(e.target.value);
                     }}
                   />
                   <Button
