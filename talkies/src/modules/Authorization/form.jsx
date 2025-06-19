@@ -4,14 +4,14 @@ import Button from '../../components/Button'
 import { useNavigate } from 'react-router-dom'
 import {useState} from 'react'
 import dft from "../../images/default.jpeg";
-import img from "../../images/Screenshot 2024-04-12 214503.png";
-import imge from "../../images/Screenshot 2024-04-12 214446.png";
+import registerImg from "../../images/login.png";
+import loginImg from "../../images/register.png";
 
 const Form = ({
   isSignInPage=false
 }) => {
   const navigate=useNavigate();
-  const [data, setdata] = useState({
+  const [data, setData] = useState({
     ...(!isSignInPage && {userName:'' , profilePic:dft}),email:'',password:''
   })
   console.log(data);
@@ -26,22 +26,22 @@ const Form = ({
       body:JSON.stringify({...data})
     })
     console.log(res,'res');
-    if(res.status==200 && isSignInPage){
+    if(res.status===200 && isSignInPage){
       const {token,user} =await res.json();
       console.log(token,user,'response');
       localStorage.setItem('user:token',token);
       navigate('/');
     }
-    else if(res.status==401 && isSignInPage){
+    else if(res.status===401 && isSignInPage){
       alert("Invalid Credentials");
     }
     else if(isSignInPage){
       alert("Error,Please try later");
     }
-    else if(res.status==200){
+    else if(res.status===200){
       navigate("/account/signin");
     }
-    else if(res.status==400){
+    else if(res.status===400){
       alert("Username already exists");
     }
     else{
@@ -57,18 +57,18 @@ const Form = ({
                 <form className='w-[350px]' onSubmit={(e)=>{handleSubmit(e)}}>
                   {
                     !isSignInPage && 
-                    <Input label='Username' type='text' placeholder='Enter Your UserName' value={data.userName} onChange={(e)=>setdata({...data,userName:e.target.value})} className='rounded-2xl font-sans'/>
+                    <Input label='Username' type='text' placeholder='Enter Your UserName' value={data.userName} onChange={(e)=>setData({...data,userName:e.target.value})} className='rounded-2xl font-sans'/>
                   }
-                    <Input label='Email' type='text' placeholder='Enter Your Email' value={data.email} onChange={(e)=>setdata({...data,email:e.target.value})} className='rounded-2xl font-sans'/>
-                    <Input label='Password' type='password' placeholder='Enter Your password' value={data.password} onChange={(e)=>setdata({...data,password:e.target.value})} className='rounded-2xl font-sans'/>
+                    <Input label='Email' type='text' placeholder='Enter Your Email' value={data.email} onChange={(e)=>setData({...data,email:e.target.value})} className='rounded-2xl font-sans'/>
+                    <Input label='Password' type='password' placeholder='Enter Your password' value={data.password} onChange={(e)=>setData({...data,password:e.target.value})} className='rounded-2xl font-sans'/>
                     <Button label={isSignInPage ? 'Sign in' : 'Register'} className='my-5 bg-[#8d91f4] hover:bg-[#525197] w-full rounded-2xl font-sans text-xl'/>
                 </form>
                 <div className='cursor-pointer text-md hover:text-blue-700 underline font-Merriweather' onClick={()=>navigate(`${isSignInPage? '/account/signup' : '/account/signin'}`)}>{isSignInPage ? 'Create New Account':'Sign in'}</div>
             </div>
             <div className='h-full w-full bg-[#F2F5F8] flex justify-center items-center'>
                    {
-                    isSignInPage ? <img src={img} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Sign In Image"/> :
-                     <img src={imge} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Register Image"/>
+                    isSignInPage ? <img src={registerImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Sign In "/> :
+                     <img src={loginImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Register"/>
                     }
             </div>
         </div>
