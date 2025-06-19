@@ -23,15 +23,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(cors());
-const port = process.env.PORT || 8000;
-
+require("dotenv").config();
+const port = process.env.PORT;
+const new_port = process.env.NEW_PORT;
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: `http://localhost:${new_port}`,
     methods: ["GET", "POST"],
   },
 });
@@ -40,7 +41,7 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT;
 
 const onlineUsers = new Map();
 io.on("connection", (socket) => {
