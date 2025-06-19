@@ -15,8 +15,6 @@ const CreatePost = () => {
     formData.append("file", data.img);
     formData.append("upload_preset", "talkies");
     formData.append("cloud_name", "dxnbifyht");
-    console.log(data.img.type, "data ka type bro::::");
-
     const res = await fetch(
       "https://api.cloudinary.com/v1_1/dxnbifyht/upload",
       {
@@ -41,12 +39,12 @@ const CreatePost = () => {
       body: JSON.stringify({
         caption: data.caption,
         desc: data.desc,
-        url: secure_url,
+        url: url,
         userId: "65f47bd5c81a4a8a1f7507e4",
         isVideo: data.img.type.includes("video") ? true : false,
       }),
     });
-    if (response.status == 200) {
+    if (response.status === 200) {
       navigate("/");
     } else {
       console.log("error");
@@ -56,7 +54,9 @@ const CreatePost = () => {
     <div className="flex bg-[#dde3f6] justify-center items-center h-screen">
       <div className="w-[800px] h-[600px] p-6">
         <form onSubmit={(e) => handleSubmit(e)}>
-          <h1 className="text-2xl pb-4 font-bold text-[#4f5ebb]">Create Post</h1>
+          <h1 className="text-2xl pb-4 font-bold text-[#4f5ebb]">
+            Create Post
+          </h1>
           <Input
             placeholder="Captions..."
             name="title"

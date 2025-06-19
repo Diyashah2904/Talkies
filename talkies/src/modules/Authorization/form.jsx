@@ -14,7 +14,6 @@ const Form = ({
   const [data, setData] = useState({
     ...(!isSignInPage && {userName:'' , profilePic:dft}),email:'',password:''
   })
-  console.log(data);
   const handleSubmit=async (e)=>{
     e.preventDefault();
     const res=await fetch(`http://localhost:8000/api/${isSignInPage ? 'login': 'register'}`,{
@@ -25,10 +24,8 @@ const Form = ({
       },
       body:JSON.stringify({...data})
     })
-    console.log(res,'res');
     if(res.status===200 && isSignInPage){
-      const {token,user} =await res.json();
-      console.log(token,user,'response');
+      const {token} =await res.json();
       localStorage.setItem('user:token',token);
       navigate('/');
     }

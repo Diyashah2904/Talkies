@@ -6,7 +6,6 @@ import {
   IconHeart,
   IconHome,
   IconMessage,
-  IconShare,
 } from "@tabler/icons-react";
 import dft from "../../images/default.jpeg";
 import Input from "../../components/Input";
