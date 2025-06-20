@@ -92,8 +92,6 @@ app.post("/api/sendMsg", authenticate, async (req, res) => {
   try {
     const { user } = req;
     const { msg, receiverId } = req.body;
-    console.log("msg", msg, "id", receiverId);
-
     const newMsg = await Msg.create({
       sender: user._id,
       receiver: receiverId,
@@ -102,14 +100,13 @@ app.post("/api/sendMsg", authenticate, async (req, res) => {
     });
     return res.status(200).send("done");
   } catch (e) {
-    console.log(e);
+    return res.status(500).send("Error sending message");
   }
 });
 app.post("/api/getMsg", authenticate, async (req, res) => {
   try {
     const { user } = req;
     const receiverId = req.body.receiverId;
-    console.log("reciever Id", receiverId);
 
     const msgs = await Msg.find({
       $or: [
@@ -119,7 +116,7 @@ app.post("/api/getMsg", authenticate, async (req, res) => {
     }).sort({ timestamp: -1 });
     return res.status(200).json({ msgs });
   } catch (e) {
-    console.log(e);
+    return res.status(500).send("Internal Server Error");
   }
 });
 app.get("/api/userList", authenticate, async (req, res) => {
@@ -131,7 +128,7 @@ app.get("/api/userList", authenticate, async (req, res) => {
     }).populate("followerId", "profilePic userName");
     return res.status(200).json({ lists, user });
   } catch (err) {
-    console.log(err);
+    return res.status(500).send("Internal server error");
   }
 });
 app.post("/api/newChat", authenticate, async (req, res) => {
@@ -141,7 +138,6 @@ app.post("/api/newChat", authenticate, async (req, res) => {
     const usersFollowingMe = await Contacts.find({
       followedId: user._id,
     }).select("followerId");
-    console.log(usersFollowingMe);
     const UsersAll = await Users.find({
       $or: [
         { userName: { $regex: search, $options: "i" } },
@@ -150,7 +146,7 @@ app.post("/api/newChat", authenticate, async (req, res) => {
     });
     res.status(200).json({ UsersAll });
   } catch (e) {
-    console.log(e);
+    return res.status(500).send("Internal server error");
   }
 });
 app.post("/api/search", authenticate, async (req, res) => {
@@ -160,12 +156,11 @@ app.post("/api/search", authenticate, async (req, res) => {
       userName: { $regex: search, $options: "i" },
     });
     if (!usersFromUserName) {
-      console.log("Nothing");
       return res.status(400).send("Not found");
     }
     res.status(200).json({ usersFromUserName });
   } catch (error) {
-    console.log(error);
+    return res.status(500).send("Internal server error");
   }
 });
 app.post("/api/sendOTP", async (req, res, next) => {
@@ -191,7 +186,6 @@ app.post("/api/sendOTP", async (req, res, next) => {
       await sendOTPVerificationEmail(result, res);
       res.status(200).send(result);
     } catch (err) {
-      console.log(err);
       res.json({
         status: "Failed",
         message: "an error occurred",
@@ -199,7 +193,6 @@ app.post("/api/sendOTP", async (req, res, next) => {
     }
     res.status(200).send("Success");
   } catch (error) {
-    console.log(error, "error");
     res.status(500).send("Server Error");
   }
 });
@@ -221,14 +214,12 @@ app.post("/api/verifyOTP", async (req, res, next) => {
       return res.status(400).send("not verified");
     }
   } catch (error) {
-    console.log(error, "error");
     res.status(500).send("Server Error");
   }
 });
 app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
   const user = await Users.findOne({ email });
-  console.log(user, "user");
   if (!user) {
     res.status(401).send("User or password is invalid");
   } else {
@@ -266,11 +257,9 @@ app.put("/api/profilePic", authenticate, async (req, res) => {
   try {
     const { url } = req.body;
     const { user } = req;
-    console.log(user, "<=user");
     if (!url) {
       return res.status(400).send("Please fill all the fields");
     }
-    console.log(url, "<=url");
     const updatedUser = await Users.findOneAndUpdate(
       { _id: user._id },
       {
@@ -292,7 +281,6 @@ app.post("/api/new-post", authenticate, async (req, res) => {
     if (!caption || !desc || !url) {
       res.status(400).send("Please fill all the fields");
     }
-    console.log(isVideo);
     const createPost = await Post.create({
       caption,
       description: desc,
@@ -310,10 +298,8 @@ app.post("/api/new-post", authenticate, async (req, res) => {
       }
     );
     await updatedUser.save();
-    console.log(createPost);
     res.status(200).send("Created post successfully");
   } catch (error) {
-    console.log(error);
     res.status(500).send("Error" + error);
   }
 });
@@ -338,13 +324,11 @@ app.get("/api/posts", authenticate, async (req, res) => {
       "user",
       "_id userName email profilePic"
     );
-    console.log(ownPost, "ownPost");
     ownPost.forEach((post) => {
       post1.push(post);
     });
     for (const obj of followers) {
       const objId = obj.followedId;
-      console.log("obj", objId);
       try {
         const posts = await Post.find({ user: objId }).populate(
           "user",
@@ -357,7 +341,6 @@ app.get("/api/posts", authenticate, async (req, res) => {
         console.error("Error fetching posts:", error);
       }
     }
-    console.log("sent");
     res.status(200).json({ post1, user });
   } catch (error) {
     res.status(200).send(error);
@@ -392,7 +375,6 @@ app.get("/api/allPosts", authenticate, async (req, res) => {
     const post1 = [];
     for (const obj of users) {
       const objId = obj._id;
-      console.log("obj", objId);
       try {
         const posts = await Post.find({ user: objId })
           .populate("user", "_id userName email profilePic")
@@ -447,7 +429,6 @@ app.get("/api/people", authenticate, async (req, res) => {
       followedId: follower._id,
       followedId: user._id,
     });
-    console.log(isFollowed);
     const userDetail = {
       id: user._id,
       userName: user.userName,
@@ -456,7 +437,6 @@ app.get("/api/people", authenticate, async (req, res) => {
       following: user.following,
       profilePic: user.profilePic,
     };
-    console.log(userDetail);
     res.status(200).json({ posts, userDetail, isFollowed: !!isFollowed });
   } catch (error) {
     console.error("Error fetching user data:", error);
@@ -467,11 +447,8 @@ app.post("/api/follow", authenticate, async (req, res) => {
   try {
     const { id } = req.body;
     const { user } = req;
-    console.log("user", user);
-    console.log("req body", req.body);
     if (!id) return res.status(400).send("id cannot be empty");
     const followerUser = await Users.findOne({ _id: id });
-    console.log(followerUser.private);
     if (followerUser.private) {
       const newUser = await Users.findOneAndUpdate(
         { _id: id },
@@ -512,7 +489,6 @@ app.post("/api/follow", authenticate, async (req, res) => {
       res.status(200).json({ isFollowed: true, isRequested: false });
     }
   } catch (e) {
-    console.log(e);
     res.status(500).send(e);
   }
 });
@@ -520,7 +496,6 @@ app.delete("/api/unfollow", authenticate, async (req, res) => {
   try {
     const { id } = req.body;
     const { user } = req;
-    console.log(req.body);
     if (!id) return res.status(400).send("id cannot be empty");
     await Contacts.deleteOne({
       followerId: user._id,
@@ -548,7 +523,6 @@ app.delete("/api/unfollow", authenticate, async (req, res) => {
     await updatedUser2.save();
     res.status(200).json({ isFollowed: false });
   } catch (e) {
-    console.log(e);
     res.status(500).send(e);
   }
 });
@@ -631,7 +605,6 @@ app.put("/api/unlike", authenticate, async (req, res) => {
 app.put("/api/comment", authenticate, async (req, res) => {
   try {
     const { id, message } = req.body;
-    console.log(req.body);
     const { user } = req;
     if (message == "") return res.status(400).send("message cannot be empty");
     if (!id) return res.status(400).send("id cannot be empty");
@@ -663,9 +636,7 @@ app.get("/api/setting", authenticate, async (req, res) => {
 app.put("/api/makePrivate", authenticate, async (req, res) => {
   try {
     const { user } = req;
-    console.log(user);
     const { isPrivate } = req.body;
-    console.log(isPrivate);
     const updatedUser = await Users.findOneAndUpdate(
       { _id: user._id },
       { $set: { private: !user.private } },
@@ -673,7 +644,6 @@ app.put("/api/makePrivate", authenticate, async (req, res) => {
     );
     res.status(200).send({ user: updatedUser });
   } catch (e) {
-    console.log(e);
     res.status(500).send(e);
   }
 });
@@ -684,10 +654,8 @@ app.get("/api/users", authenticate, async (req, res) => {
       "followRequest",
       "profilePic userName "
     );
-    console.log(requiredUser);
     res.status(200).send({ user: requiredUser });
   } catch (e) {
-    console.log(e);
     res.status(500).send(e);
   }
 });
@@ -695,7 +663,6 @@ app.put("/api/accept", authenticate, async (req, res) => {
   try {
     const { user } = req;
     const { requestedId } = req.body;
-    console.log(user.userName, requestedId);
     const mainUser = await Users.findOneAndUpdate(
       {
         _id: user._id,
@@ -727,7 +694,6 @@ app.put("/api/accept", authenticate, async (req, res) => {
     await newContact.save();
     res.status(200).send("Success");
   } catch (e) {
-    console.log(e);
     re.status(500).send(e);
   }
 });
@@ -748,7 +714,6 @@ app.put("/api/reject", authenticate, async (req, res) => {
     );
     res.status(200).send("Success");
   } catch (e) {
-    console.log(e);
     re.status(500).send(e);
   }
 });
@@ -771,7 +736,6 @@ app.delete("/api/deletePost", authenticate, async (req, res) => {
     );
     res.status(200).json({ user: mainUser, post: updatedPost });
   } catch (error) {
-    console.log(error);
     res.status(500).json({ error: "Internal Server Error" });
   }
 });

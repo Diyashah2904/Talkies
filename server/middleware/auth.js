@@ -17,10 +17,8 @@ const authenticate = async (req, res, next) => {
       return res.status(401).send("User not Found");
     }
     req.user = user;
-    console.log("success in authentication");
     next();
   } catch (error) {
-    console.log("Authentication Error:", error);
     return res.status(500).send("Internal Server Error");
   }
 };

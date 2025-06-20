@@ -1,5 +1,5 @@
 const { default: mongoose } = require("mongoose");
-require("dotenv").config(); // Load .env variables
+require("dotenv").config();
 
 const uri = process.env.MONGO_URI;
 mongoose
