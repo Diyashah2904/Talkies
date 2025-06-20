@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { stats } from "../Home/data";
 import { useNavigate } from "react-router-dom";
 import {
   IconBookmark,
   IconHeart,
   IconHome,
   IconMessage,
-  IconShare,
 } from "@tabler/icons-react";
 import dft from "../../images/default.jpeg";
 import Input from "../../components/Input";
@@ -63,11 +61,10 @@ const Profile = () => {
           Authorization: `Bearer ${localStorage.getItem("user:token")}`,
         },
         body: JSON.stringify({
-          url: secure_url,
+          url: url,
         }),
       });
       const { profilePic } = await response.json();
-      console.log(profilePic, "<=profilePic");
       setpic(profilePic);
     } catch (error) {
       console.log(error);
@@ -94,13 +91,17 @@ const Profile = () => {
             <form onSubmit={(e) => handleSubmit(e)}>
               <div className="flex flex-col my-4 items-center">
                 <img
-                  src={User?.profilePic || dft}
+                  src={pic || dft}
                   alt="Profile"
                   className="w-[120px] h-[120px] mx-6 rounded-full"
                 />
                 <div className="flex flex-col items-center mt-[7px]">
-                  <p className="text-xl font-sans font-bold">{User?.userName}</p>
-                  <p className="text-xs font-sans font-semibold">{User?.email}</p>
+                  <p className="text-xl font-sans font-bold">
+                    {User?.userName}
+                  </p>
+                  <p className="text-xs font-sans font-semibold">
+                    {User?.email}
+                  </p>
                 </div>
               </div>
               <Input

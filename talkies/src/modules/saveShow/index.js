@@ -26,7 +26,6 @@ const SaveShow = () => {
         },
       });
       const data1 = await response.json();
-      console.log(data1);
       setdata(data1.posts);
       setUser(data1.user);
     };

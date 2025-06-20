@@ -26,7 +26,6 @@ const LikeShow = () => {
         },
       });
       const data1 = await response.json();
-      console.log(data1);
       setData(data1.posts);
       setUser(data1.user);
     };

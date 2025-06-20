@@ -6,7 +6,6 @@ import { IconHome } from "@tabler/icons-react";
 const Search = () => {
   const location = useLocation();
   const navigate = useNavigate();
-  console.log(location.state);
   const Found = location.state.userFromUserName.length > 0 ? true : false;
   return (
     <div className="bg-[#dde3f6] flex flex-col items-center">

@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
-import { IconHome, IconSettings } from "@tabler/icons-react";
+import { IconHome } from "@tabler/icons-react";
 import { useNavigate } from "react-router-dom";
-import dft from "../../images/default.jpeg";
 const Setting = () => {
-  const [user, setuser] = useState({});
   const navigate = useNavigate();
   const [isPrivate, setisPrivate] = useState(false);
   useEffect(() => {
@@ -17,7 +15,6 @@ const Setting = () => {
         },
       });
       const user1 = await response.json();
-      setuser(user1.user);
       setisPrivate(user1.user.private);
     };
     fetchUser();
@@ -34,49 +31,52 @@ const Setting = () => {
       });
       const user1 = await response.json();
       console.log(user1.user.private);
-      setuser(user1.user);
       setisPrivate(user1?.user.private);
     } catch (error) {
       console.log(error);
     }
   };
   return (
-   <div>
-  <div className="flex items-center justify-center w-full border-b pb-[7px] h-[15%] ">
-    <Button
-      label={
-        <div className="flex items-center">
-          <IconHome />
-          <p className="ml-2">Home</p>
-        </div>
-      }
-      className="fixed top-2 left-2 bg-[#8d91f4] hover:bg-[#525197] rounded-2xl font-sans text-xl"
-      onChange={() => navigate("/")}
-    />
-    <h1 className="font-bold text-[30px] font-sans">Settings</h1>
-  </div>
-  <div>
-    {!isPrivate ? (
-      <div className="flex justify-center items-center h-screen bg-[#dde3f6]">
-          <p className="text-center">Your account is public, press the button to make it private</p>
+    <div>
+      <div className="flex items-center justify-center w-full border-b pb-[7px] h-[15%] ">
         <Button
-          label="Private"
-          className="mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
-          onChange={() => makeItPrivate()}
+          label={
+            <div className="flex items-center">
+              <IconHome />
+              <p className="ml-2">Home</p>
+            </div>
+          }
+          className="fixed top-2 left-2 bg-[#8d91f4] hover:bg-[#525197] rounded-2xl font-sans text-xl"
+          onChange={() => navigate("/")}
         />
+        <h1 className="font-bold text-[30px] font-sans">Settings</h1>
       </div>
-    ) : (
-      <div className="flex justify-center items-center h-screen bg-[#dde3f6]">
-        <p className="text-center">Your account is private, press the button to make it public</p>
-        <Button
-          label="Public"
-          className="ml-4 rounded-3xl bg-[#8d91f4] hover:bg-[#525197]"
-          onChange={() => makeItPrivate()}
-        />
+      <div>
+        {!isPrivate ? (
+          <div className="flex justify-center items-center h-screen bg-[#dde3f6]">
+            <p className="text-center">
+              Your account is public, press the button to make it private
+            </p>
+            <Button
+              label="Private"
+              className="mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
+              onChange={() => makeItPrivate()}
+            />
+          </div>
+        ) : (
+          <div className="flex justify-center items-center h-screen bg-[#dde3f6]">
+            <p className="text-center">
+              Your account is private, press the button to make it public
+            </p>
+            <Button
+              label="Public"
+              className="ml-4 rounded-3xl bg-[#8d91f4] hover:bg-[#525197]"
+              onChange={() => makeItPrivate()}
+            />
+          </div>
+        )}
       </div>
-    )}
-  </div>
-</div>
+    </div>
   );
 };
 

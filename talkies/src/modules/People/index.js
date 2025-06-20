@@ -32,7 +32,6 @@ const People = () => {
         }
       );
       const data = await response.json();
-      console.log(data);
       setPosts(data?.posts);
       setUser(data?.userDetail);
       setLoading(false);
@@ -128,7 +127,6 @@ const People = () => {
     });
     const data = await response.json();
     setIsFollowed(data?.isFollowed);
-    console.log(response, "resppo");
   };
   const handleFollow = async () => {
     try {
@@ -146,7 +144,6 @@ const People = () => {
       }
       const data = await response.json();
       setIsFollowed(data?.isFollowed);
-      console.log("Successfully followed user");
     } catch (error) {
       console.error("Error occurred while following user:", error.message);
     }
