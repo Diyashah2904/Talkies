@@ -32,7 +32,7 @@ app.get("/", (req, res) => {
 const server = http.createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: `http://localhost:${new_port}`,
+    origin: `https://instagram-clone-talkies.vercel.app/`,
     methods: ["GET", "POST"],
   },
 });
