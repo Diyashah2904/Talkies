@@ -51,9 +51,11 @@ const Home = () => {
       setUser(data1.user);
       setLoading(false);
     };
-    fetchPosts();
+    if (isToken) {
+      fetchPosts();
+    }
     setDarkMode(Boolean(localStorage.getItem("dark")));
-  }, []);
+  }, [isToken]);
   const handleSearch = async () => {
     try {
       const response = await fetch(
