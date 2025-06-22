@@ -6,7 +6,9 @@ const jwt = require("jsonwebtoken");
 const { Server } = require("socket.io");
 const cors = require("cors");
 require("dotenv").config();
-
+const nodemailer = require("nodemailer");
+const bodyParser = require("body-parser");
+const bcrypt = require("bcrypt");
 const app = express();
 const server = http.createServer(app); // ✅ combine HTTP + Express
 
