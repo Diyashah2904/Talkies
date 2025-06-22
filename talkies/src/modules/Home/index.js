@@ -24,6 +24,7 @@ const Home = () => {
     setDarkMode(!darkMode);
     localStorage.setItem("dark", JSON.stringify(!darkMode));
   };
+  const [isToken, setIsToken] = useState(false);
   const [isPrivate, setIsPrivate] = useState(false);
   const [commentOn, setCommentOn] = useState(false);
   const [data, setData] = useState([]);
@@ -33,6 +34,7 @@ const Home = () => {
   const [search, setSearch] = useState("");
   useEffect(() => {
     const fetchPosts = async () => {
+      if (localStorage.length > 0) setIsToken(true);
       setLoading(true);
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
@@ -217,7 +219,7 @@ const Home = () => {
   };
   return (
     <div className="h-screen flex overflow-hidden">
-      {User ? (
+      {isToken ? (
         <>
           <div
             className={`w-[20%] flex flex-col ${
