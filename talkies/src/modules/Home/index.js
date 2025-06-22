@@ -64,7 +64,6 @@ const Home = () => {
           setUser(data1.user || {});
         } catch (error) {
           console.error("❌ Fetch error:", error.message);
-          setMsg("Failed to load posts.");
         } finally {
           setLoading(false);
         }
