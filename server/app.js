@@ -632,9 +632,6 @@ app.put("/api/comment", authenticate, async (req, res) => {
     res.status(500).send("error");
   }
 });
-app.listen(port, () => {
-  console.log("Server is Running");
-});
 app.get("/api/setting", authenticate, async (req, res) => {
   try {
     const { user } = req;
