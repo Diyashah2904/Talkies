@@ -602,7 +602,7 @@ const Home = () => {
             label="signup"
             className="mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
             onChange={() => navigate("/account/signup")}
-          ></Button>
+          />
         </div>
       )}
     </div>
