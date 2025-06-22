@@ -228,7 +228,7 @@ const Home = () => {
     }
   };
   return (
-    <div className="h-screen flex overflow-hidden">
+    <div className="h-screen w-screen flex overflow-hidden">
       <div
         className={`w-[20%] flex flex-col ${
           darkMode ? "bg-[#0a0f27] text-white" : "bg-[#dde3f6]"
@@ -280,7 +280,7 @@ const Home = () => {
               <Link
                 to={url}
                 key={id}
-                className={`flex items-center h-[40px] rounded-2xl px-4 ${
+                className={`flex items-center h-[18%] rounded-2xl px-4 ${
                   darkMode
                     ? "text-white hover:bg-[#C9D2F6] hover:text-black"
                     : "bg-[#dde3f6] text-black hover:bg-[#C9D2F6]"
@@ -296,7 +296,7 @@ const Home = () => {
               </Link>
             );
           })}
-          <div className="flex justify-items">
+          <div className="flex h-[18%] w-full justify-items">
             <div className="flex items-center ml-4">
               <IconLock />
               <p className="ml-2">Account</p>
@@ -306,6 +306,7 @@ const Home = () => {
                 className="sr-only peer"
                 value=""
                 type="checkbox"
+                checked={isPrivate}
                 onChange={makeItPrivate}
               />
               <div className="group peer ring-0 bg-gray-50 border-2 border-gray-900 rounded-full outline-none duration-700 after:duration-200 w-16 h-8 shadow-md peer-checked:bg-gradient-to-r peer-focus:outline-none after:content-[''] after:rounded-full after:absolute after:bg-gray-900 after:outline-none after:h-6 after:w-6 after:top-1 after:left-1 peer-checked:after:translate-x-6 peer-hover:after:scale-95">
