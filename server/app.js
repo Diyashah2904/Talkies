@@ -22,7 +22,12 @@ const { Timestamp } = require("mongodb");
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://instagram-clone-talkies.vercel.app",
+    credentials: true,
+  })
+);
 require("dotenv").config();
 const port = process.env.PORT;
 const new_port = process.env.NEW_PORT;
@@ -36,8 +41,6 @@ const io = new Server(server, {
     methods: ["GET", "POST"],
   },
 });
-
-app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
