@@ -209,9 +209,6 @@ app.post("/api/sendOTP", async (req, res, next) => {
     res.status(500).send("Server Error");
   }
 });
-server.listen(8000, () => {
-  console.log("Server listening on port 8000");
-});
 app.post("/api/verifyOTP", async (req, res, next) => {
   try {
     const { user } = req;
