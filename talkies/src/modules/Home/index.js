@@ -33,7 +33,7 @@ const Home = () => {
   const [msg, setMsg] = useState("");
   const [search, setSearch] = useState("");
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("user:token");
     setIsToken(!!token);
     const fetchPosts = async () => {
       const response = await fetch(
