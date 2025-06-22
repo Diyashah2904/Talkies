@@ -239,7 +239,7 @@ const Home = () => {
   };
   return (
     <div className="h-screen flex overflow-hidden">
-      {isToken ? (
+      {localStorage.getItem("user:token") ? (
         <>
           <div
             className={`w-[20%] flex flex-col ${
