@@ -12,7 +12,6 @@ import {
   IconUser,
   IconX,
   IconCheck,
-  IconCheckbox,
 } from "@tabler/icons-react";
 import socket from "../../socket"; // Uncomment this line to use your actual socket
 
