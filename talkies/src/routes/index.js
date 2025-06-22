@@ -23,7 +23,7 @@ const PrivateRoute = ({ children }) => {
     return children;
   } else {
     const redirectUrl = isUserLoggedIn ? "/" : "account/signin";
-    <Navigate to={redirectUrl} replace />;
+    return <Navigate to={redirectUrl} replace />;
   }
 };
 const Routes = () => {
