@@ -22,7 +22,7 @@ const People = () => {
     const getPosts = async () => {
       setLoading(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/people?userName=${userName}`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/people?userName=${userName}`,
         {
           method: "GET",
           headers: {
@@ -42,7 +42,7 @@ const People = () => {
   const handleSaves = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/save`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/save`,
         {
           method: "PUT",
           headers: {
@@ -65,7 +65,7 @@ const People = () => {
   const handleUnsaves = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/Unsave`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/Unsave`,
         {
           method: "PUT",
           headers: {
@@ -89,7 +89,7 @@ const People = () => {
   const handleLike = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/like`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/like`,
         {
           method: "PUT",
           headers: {
@@ -111,7 +111,7 @@ const People = () => {
   };
   const handleUnlike = async (_id, index) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}api/unlike`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/unlike`,
       {
         method: "PUT",
         headers: {
@@ -130,7 +130,7 @@ const People = () => {
   };
   const handleUnfollow = async () => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}api/unfollow`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/unfollow`,
       {
         method: "DELETE",
         headers: {
@@ -146,7 +146,7 @@ const People = () => {
   const handleFollow = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/follow`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/follow`,
         {
           method: "POST",
           headers: {

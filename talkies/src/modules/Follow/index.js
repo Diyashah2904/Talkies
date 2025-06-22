@@ -12,7 +12,7 @@ const Followers = () => {
   useEffect(() => {
     const fetchFollowData = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/followShow`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/followShow`,
         {
           method: "GET",
           headers: {

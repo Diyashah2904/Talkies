@@ -8,7 +8,7 @@ const Setting = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/setting`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/setting`,
         {
           method: "GET",
           headers: {
@@ -25,7 +25,7 @@ const Setting = () => {
   const makeItPrivate = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/makePrivate`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/makePrivate`,
         {
           method: "PUT",
           headers: {

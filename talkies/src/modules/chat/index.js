@@ -55,7 +55,7 @@ const Chat = () => {
       setLoading(true);
       try {
         const response = await fetch(
-          `${process.env.REACT_APP_API_BASE_URL}api/userList`,
+          `${process.env.REACT_APP_API_BASE_URL}/api/userList`,
           {
             method: "GET",
             headers: {
@@ -152,7 +152,7 @@ const Chat = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/newChat`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/newChat`,
         {
           method: "POST",
           headers: {

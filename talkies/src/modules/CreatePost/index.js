@@ -31,7 +31,7 @@ const CreatePost = () => {
     const { secure_url } = await uploadImage();
     setUrl(secure_url);
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}api/new-post`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/new-post`,
       {
         method: "POST",
         headers: {

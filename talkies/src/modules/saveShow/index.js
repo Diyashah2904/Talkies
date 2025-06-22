@@ -19,7 +19,7 @@ const SaveShow = () => {
   useEffect(() => {
     const fetchPosts = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/allSaves`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/allSaves`,
         {
           method: "GET",
           headers: {
@@ -37,7 +37,7 @@ const SaveShow = () => {
   const handleSaves = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/save`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/save`,
         {
           method: "PUT",
           headers: {
@@ -60,7 +60,7 @@ const SaveShow = () => {
   const handleUnsaves = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/Unsave`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/Unsave`,
         {
           method: "PUT",
           headers: {
@@ -83,7 +83,7 @@ const SaveShow = () => {
   const handleComment = async (_id, index, msg) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/comment`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/comment`,
         {
           method: "PUT",
           headers: {
@@ -106,7 +106,7 @@ const SaveShow = () => {
   const handleLike = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/like`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/like`,
         {
           method: "PUT",
           headers: {
@@ -128,7 +128,7 @@ const SaveShow = () => {
   };
   const handleUnlike = async (_id, index) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}api/unlike`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/unlike`,
       {
         method: "PUT",
         headers: {

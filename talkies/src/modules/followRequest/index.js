@@ -9,7 +9,7 @@ const FollowRequest = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/users`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/users`,
         {
           method: "GET",
           headers: {
@@ -25,7 +25,7 @@ const FollowRequest = () => {
   }, []);
   const handleAccept = async (id) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}api/accept`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/accept`,
       {
         method: "PUT",
         headers: {
@@ -41,7 +41,7 @@ const FollowRequest = () => {
   };
   const handleReject = async (id) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}api/reject`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/reject`,
       {
         method: "PUT",
         headers: {

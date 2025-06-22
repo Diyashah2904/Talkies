@@ -21,7 +21,7 @@ const Profile = () => {
   useEffect(() => {
     const getPosts = async () => {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/profile`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/profile`,
         {
           method: "GET",
           headers: {
@@ -58,7 +58,7 @@ const Profile = () => {
       const { secure_url } = await uploadImage();
       seturl(secure_url);
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/profilePic`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/profilePic`,
         {
           method: "PUT",
           headers: {

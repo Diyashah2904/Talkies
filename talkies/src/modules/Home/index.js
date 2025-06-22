@@ -35,7 +35,7 @@ const Home = () => {
     const fetchPosts = async () => {
       setLoading(true);
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/posts`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
         {
           method: "GET",
           headers: {
@@ -55,7 +55,7 @@ const Home = () => {
   const handleSearch = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/search`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/search`,
         {
           method: "POST",
           headers: {
@@ -81,7 +81,7 @@ const Home = () => {
   const handleSaves = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/save`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/save`,
         {
           method: "PUT",
           headers: {
@@ -104,7 +104,7 @@ const Home = () => {
   const handleUnsaves = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/Unsave`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/Unsave`,
         {
           method: "PUT",
           headers: {
@@ -127,7 +127,7 @@ const Home = () => {
   const handleComment = async (_id, index, msg) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/comment`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/comment`,
         {
           method: "PUT",
           headers: {
@@ -150,7 +150,7 @@ const Home = () => {
   const handleLike = async (_id, index) => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/like`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/like`,
         {
           method: "PUT",
           headers: {
@@ -172,7 +172,7 @@ const Home = () => {
   };
   const handleUnlike = async (_id, index) => {
     const response = await fetch(
-      `${process.env.REACT_APP_API_BASE_URL}api/unlike`,
+      `${process.env.REACT_APP_API_BASE_URL}/api/unlike`,
       {
         method: "PUT",
         headers: {
@@ -198,7 +198,7 @@ const Home = () => {
   const makeItPrivate = async () => {
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}api/makePrivate`,
+        `${process.env.REACT_APP_API_BASE_URL}/api/makePrivate`,
         {
           method: "PUT",
           headers: {
