@@ -35,6 +35,8 @@ const Home = () => {
   useEffect(() => {
     const token = localStorage.getItem("user:token");
     setIsToken(!!token);
+    console.log(isToken);
+
     const fetchPosts = async () => {
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
