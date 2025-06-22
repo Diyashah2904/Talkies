@@ -51,7 +51,7 @@ const Form = ({
             <div className={`h-full w-full flex flex-col justify-center items-center ${!isSignInPage && 'order-2'}`}>
                 <div className='text-4xl font-serif text-4xl font-bold'>WELCOME {isSignInPage && 'BACK'}</div>
                 <div className='mb-[7%] font-sans text-xl'>Please {isSignInPage ?'Login':'Sign Up'} to continue</div>
-                <form className='w-[40%]' onSubmit={(e)=>{handleSubmit(e)}}>
+                <form className='w-[60%]' onSubmit={(e)=>{handleSubmit(e)}}>
                   {
                     !isSignInPage && 
                     <Input label='Username' type='text' placeholder='Enter Your UserName' value={data.userName} onChange={(e)=>setData({...data,userName:e.target.value})} className='rounded-2xl font-sans'/>
@@ -64,8 +64,8 @@ const Form = ({
             </div>
             <div className='h-full w-full bg-[#F2F5F8] flex justify-center items-center'>
                    {
-                    isSignInPage ? <img src={registerImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Sign In "/> :
-                     <img src={loginImg} style={{ width: '100%', height: '100%', objectFit: 'cover' }} alt="Register"/>
+                    isSignInPage ? <img src={registerImg} style={{ width: '100%', height: '100%', objectFit: 'fit' }} alt="Sign In "/> :
+                     <img src={loginImg} style={{ width: '100%', height: '100%', objectFit: 'fit' }} alt="Register"/>
                     }
             </div>
         </div>
