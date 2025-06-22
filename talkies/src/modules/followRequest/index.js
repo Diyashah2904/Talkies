@@ -8,40 +8,49 @@ const FollowRequest = () => {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch("http://localhost:8000/api/users", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/users`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+        }
+      );
       const data = await response.json();
       setUser(data.user);
     };
     fetchUser();
   }, []);
   const handleAccept = async (id) => {
-    const response = await fetch("http://localhost:8000/api/accept", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-      },
-      body: JSON.stringify({ requestedId: id }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}api/accept`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+        },
+        body: JSON.stringify({ requestedId: id }),
+      }
+    );
     if (response.status === 200) {
       navigate("/followRequest");
     }
   };
   const handleReject = async (id) => {
-    const response = await fetch("http://localhost:8000/api/reject", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-      },
-      body: JSON.stringify({ requestedId: id }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}api/reject`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+        },
+        body: JSON.stringify({ requestedId: id }),
+      }
+    );
     if (response.status === 200) {
       navigate("/followRequest");
     }

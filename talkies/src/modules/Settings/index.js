@@ -7,13 +7,16 @@ const Setting = () => {
   const [isPrivate, setisPrivate] = useState(false);
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await fetch("http://localhost:8000/api/setting", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/setting`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+        }
+      );
       const user1 = await response.json();
       setisPrivate(user1.user.private);
     };
@@ -21,14 +24,17 @@ const Setting = () => {
   }, []);
   const makeItPrivate = async () => {
     try {
-      const response = await fetch("http://localhost:8000/api/makePrivate", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ isPrivate: isPrivate }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/makePrivate`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ isPrivate: isPrivate }),
+        }
+      );
       const user1 = await response.json();
       console.log(user1.user.private);
       setisPrivate(user1?.user.private);

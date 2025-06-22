@@ -54,13 +54,16 @@ const Chat = () => {
     const fetchUsers = async () => {
       setLoading(true);
       try {
-        const response = await fetch("http://localhost:8000/api/userList", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-          },
-        });
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}api/userList`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+            },
+          }
+        );
         const data = await response.json();
         setUsers(data.Lists || []);
         setcurrUser(data.user || {});
@@ -148,14 +151,17 @@ const Chat = () => {
 
     setLoading(true);
     try {
-      const response = await fetch("http://localhost:8000/api/newChat", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ search: search }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/newChat`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ search: search }),
+        }
+      );
       const res = await response.json();
       setnewOptions(res.UsersAll || []);
       setnewSelected(true);

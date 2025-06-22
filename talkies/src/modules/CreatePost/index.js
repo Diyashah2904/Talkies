@@ -30,20 +30,23 @@ const CreatePost = () => {
     e.preventDefault();
     const { secure_url } = await uploadImage();
     setUrl(secure_url);
-    const response = await fetch("http://localhost:8000/api/new-post", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-      },
-      body: JSON.stringify({
-        caption: data.caption,
-        desc: data.desc,
-        url: url,
-        userId: "65f47bd5c81a4a8a1f7507e4",
-        isVideo: data.img.type.includes("video") ? true : false,
-      }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}api/new-post`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+        },
+        body: JSON.stringify({
+          caption: data.caption,
+          desc: data.desc,
+          url: url,
+          userId: "65f47bd5c81a4a8a1f7507e4",
+          isVideo: data.img.type.includes("video") ? true : false,
+        }),
+      }
+    );
     if (response.status === 200) {
       navigate("/");
     } else {

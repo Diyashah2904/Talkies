@@ -18,13 +18,16 @@ const CommentShow = () => {
   const [msg, setMsg] = useState("");
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await fetch("http://localhost:8000/api/allComments", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/allComments`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+        }
+      );
       const data1 = await response.json();
       console.log(data1);
       setData(data1.posts);
@@ -34,14 +37,17 @@ const CommentShow = () => {
   }, []);
   const handleSaves = async (_id, index) => {
     try {
-      const response = await fetch("http://localhost:8000/api/save", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ id: _id }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/save`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: _id }),
+        }
+      );
       const updatedPost = await response.json();
       const updatePost = data?.map((post, i) => {
         if (i === index) return updatedPost;
@@ -54,14 +60,17 @@ const CommentShow = () => {
   };
   const handleUnsaves = async (_id, index) => {
     try {
-      const response = await fetch("http://localhost:8000/api/Unsave", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ id: _id }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/Unsave`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: _id }),
+        }
+      );
       const updatedPost = await response.json();
       const updatePost = data?.map((post, i) => {
         if (i === index) return updatedPost;
@@ -74,14 +83,17 @@ const CommentShow = () => {
   };
   const handleComment = async (_id, index, msg) => {
     try {
-      const response = await fetch("http://localhost:8000/api/comment", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ id: _id, message: msg }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/comment`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: _id, message: msg }),
+        }
+      );
       const updatedPost = await response.json();
       const updatePost = data?.map((post, i) => {
         if (i === index) return updatedPost;
@@ -94,14 +106,17 @@ const CommentShow = () => {
   };
   const handleLike = async (_id, index) => {
     try {
-      const response = await fetch("http://localhost:8000/api/like", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ id: _id }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/like`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: _id }),
+        }
+      );
       const updatedPost = await response.json();
       const updatePost = data?.map((post, i) => {
         if (i === index) return updatedPost;
@@ -113,14 +128,17 @@ const CommentShow = () => {
     }
   };
   const handleUnlike = async (_id, index) => {
-    const response = await fetch("http://localhost:8000/api/unlike", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-      },
-      body: JSON.stringify({ id: _id }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}api/unlike`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+        },
+        body: JSON.stringify({ id: _id }),
+      }
+    );
     const updatedPost = await response.json();
     const updatePost = data?.map((post, i) => {
       if (i === index) return updatedPost;

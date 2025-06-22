@@ -22,7 +22,7 @@ const People = () => {
     const getPosts = async () => {
       setLoading(true);
       const response = await fetch(
-        `http://localhost:8000/api/people?userName=${userName}`,
+        `${process.env.REACT_APP_API_BASE_URL}api/people?userName=${userName}`,
         {
           method: "GET",
           headers: {
@@ -41,14 +41,17 @@ const People = () => {
   }, [userName]);
   const handleSaves = async (_id, index) => {
     try {
-      const response = await fetch("http://localhost:8000/api/save", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ id: _id }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/save`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: _id }),
+        }
+      );
       const updatedPost = await response.json();
       const updatePost = data?.map((post, i) => {
         if (i === index) return updatedPost;
@@ -61,14 +64,17 @@ const People = () => {
   };
   const handleUnsaves = async (_id, index) => {
     try {
-      const response = await fetch("http://localhost:8000/api/Unsave", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ id: _id }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/Unsave`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: _id }),
+        }
+      );
       const updatedPost = await response.json();
       const updatePost = data?.map((post, i) => {
         if (i === index) return updatedPost;
@@ -82,14 +88,17 @@ const People = () => {
 
   const handleLike = async (_id, index) => {
     try {
-      const response = await fetch("http://localhost:8000/api/like", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({ id: _id }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/like`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: _id }),
+        }
+      );
       const updatedPost = await response.json();
       const updatePost = data?.map((post, i) => {
         if (i === index) return updatedPost;
@@ -101,14 +110,17 @@ const People = () => {
     }
   };
   const handleUnlike = async (_id, index) => {
-    const response = await fetch("http://localhost:8000/api/unlike", {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-      },
-      body: JSON.stringify({ id: _id }),
-    });
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}api/unlike`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+        },
+        body: JSON.stringify({ id: _id }),
+      }
+    );
     const updatedPost = await response.json();
     const updatePost = data?.map((post, i) => {
       if (i === index) return updatedPost;
@@ -117,27 +129,33 @@ const People = () => {
     setData(updatePost);
   };
   const handleUnfollow = async () => {
-    const response = await fetch("http://localhost:8000/api/unfollow", {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-      },
-      body: JSON.stringify({ id: user.id }),
-    });
-    const data = await response.json();
-    setIsFollowed(data?.isFollowed);
-  };
-  const handleFollow = async () => {
-    try {
-      const response = await fetch("http://localhost:8000/api/follow", {
-        method: "POST",
+    const response = await fetch(
+      `${process.env.REACT_APP_API_BASE_URL}api/unfollow`,
+      {
+        method: "DELETE",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("user:token")}`,
         },
         body: JSON.stringify({ id: user.id }),
-      });
+      }
+    );
+    const data = await response.json();
+    setIsFollowed(data?.isFollowed);
+  };
+  const handleFollow = async () => {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/follow`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({ id: user.id }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`Failed to follow user: ${response.status}`);

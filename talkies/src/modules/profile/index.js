@@ -20,13 +20,16 @@ const Profile = () => {
   const [User, setUser] = useState([]);
   useEffect(() => {
     const getPosts = async () => {
-      const response = await fetch("http://localhost:8000/api/profile", {
-        method: "GET",
-        headers: {
-          "content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/profile`,
+        {
+          method: "GET",
+          headers: {
+            "content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+        }
+      );
       const data = await response.json();
       setposts(data?.posts);
       setUser(data?.user);
@@ -54,16 +57,19 @@ const Profile = () => {
       e.preventDefault();
       const { secure_url } = await uploadImage();
       seturl(secure_url);
-      const response = await fetch("http://localhost:8000/api/profilePic", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-        body: JSON.stringify({
-          url: url,
-        }),
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/profilePic`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+          body: JSON.stringify({
+            url: url,
+          }),
+        }
+      );
       const { profilePic } = await response.json();
       setpic(profilePic);
     } catch (error) {

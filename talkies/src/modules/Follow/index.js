@@ -11,13 +11,16 @@ const Followers = () => {
 
   useEffect(() => {
     const fetchFollowData = async () => {
-      const response = await fetch("http://localhost:8000/api/followShow", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-        },
-      });
+      const response = await fetch(
+        `${process.env.REACT_APP_API_BASE_URL}api/followShow`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+          },
+        }
+      );
       const data = await response.json();
       setFollowerList(data?.followerList);
       setFollowingList(data?.followingList);
