@@ -595,7 +595,11 @@ const Home = () => {
           {/* Toggle Dark Mode Button */}
         </>
       ) : (
-        <Button onChange={navigate("/account/signup")}>Sign up</Button>
+        <Button
+          className="mb-4 ml-4 rounded-3xl mr-20 bg-[#8d91f4] hover:bg-[#525197]"
+          onChange={navigate("/account/signup")}
+          label="signup"
+        ></Button>
       )}
     </div>
   );
