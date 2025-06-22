@@ -33,9 +33,9 @@ const Home = () => {
   const [msg, setMsg] = useState("");
   const [search, setSearch] = useState("");
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    setIsToken(!!token);
     const fetchPosts = async () => {
-      if (localStorage.length > 0) setIsToken(true);
-      setLoading(true);
       const response = await fetch(
         `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
         {
