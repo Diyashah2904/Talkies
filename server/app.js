@@ -5,20 +5,22 @@ const http = require("http");
 const jwt = require("jsonwebtoken");
 const { Server } = require("socket.io");
 const cors = require("cors");
+require("dotenv").config();
+
 const app = express();
+const server = http.createServer(app); // ✅ combine HTTP + Express
+
+// Models & DB
+require("./db/connection");
 const Users = require("./models/userSchema");
 const Post = require("./models/postSchema");
 const Msg = require("./models/msg");
 const Contacts = require("./models/contactSchema");
-const nodemailer = require("nodemailer");
-const bodyParser = require("body-parser");
-const bcrypt = require("bcrypt");
 const userOTPverification = require("./models/userOTPverification");
-require("./db/connection");
 const authenticate = require("./middleware/auth");
 const mongoose = require("mongoose");
-const msg = require("./models/msg");
-const { Timestamp } = require("mongodb");
+
+// Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -28,26 +30,26 @@ app.use(
     credentials: true,
   })
 );
-require("dotenv").config();
-const port = process.env.PORT;
+
+// Test route
 app.get("/", (req, res) => {
-  res.send("Hello world");
+  res.send("Hello world from backend");
 });
-const server = http.createServer(app);
+
+// ✅ Socket.IO setup
 const io = new Server(server, {
   cors: {
-    origin: `https://instagram-clone-talkies.vercel.app`,
+    origin: "https://instagram-clone-talkies.vercel.app",
     methods: ["GET", "POST"],
     credentials: true,
   },
 });
-app.use(express.json());
-app.use(cookieParser());
-
-const PORT = process.env.PORT;
 
 const onlineUsers = new Map();
+
 io.on("connection", (socket) => {
+  console.log("⚡ New client connected:", socket.id);
+
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);
   });
@@ -64,7 +66,7 @@ io.on("connection", (socket) => {
     if (receiverSocket) {
       io.to(receiverSocket).emit("receive-message", newMsg);
     }
-    socket.emit("receive-message", newMsg); // confirm to sender
+    socket.emit("receive-message", newMsg);
   });
 
   socket.on("load_messages", async ({ userId, otherUserId }) => {
@@ -89,8 +91,16 @@ io.on("connection", (socket) => {
         break;
       }
     }
+    console.log("🚪 Client disconnected:", socket.id);
   });
 });
+
+// ✅ Single listening point — this starts both HTTP + Socket.IO
+const PORT = process.env.PORT || 8000;
+server.listen(PORT, () => {
+  console.log(`✅ Server running on port ${PORT}`);
+});
+
 app.post("/api/sendMsg", authenticate, async (req, res) => {
   try {
     const { user } = req;
