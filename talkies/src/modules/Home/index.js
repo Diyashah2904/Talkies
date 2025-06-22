@@ -33,46 +33,39 @@ const Home = () => {
   const [msg, setMsg] = useState("");
   const [search, setSearch] = useState("");
   useEffect(() => {
-    const token = localStorage.getItem("user:token");
-    const dark = localStorage.getItem("dark");
+    console.log(localStorage("user:token"));
 
-    setDarkMode(Boolean(dark));
-
-    if (token) {
-      setIsToken(true);
-
-      const fetchPosts = async () => {
-        try {
-          setLoading(true);
-          const response = await fetch(
-            `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
-            {
-              method: "GET",
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-
-          if (!response.ok) {
-            throw new Error("Failed to fetch posts");
+    const fetchPosts = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(
+          `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${localStorage.getItem("user:token")}`,
+            },
           }
+        );
 
-          const data1 = await response.json();
-          setData(data1.post1 || []);
-          setUser(data1.user || {});
-        } catch (error) {
-          console.error("❌ Fetch error:", error.message);
-        } finally {
-          setLoading(false);
+        if (!response.ok) {
+          throw new Error("Failed to fetch posts");
         }
-      };
 
-      fetchPosts();
-    } else {
-      setIsToken(false);
-    }
+        const data1 = await response.json();
+        setData(data1.post1 || []);
+        setUser(data1.user || {});
+      } catch (error) {
+        console.error("❌ Fetch error:", error.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchPosts();
+    const dark = localStorage.getItem("dark");
+    setDarkMode(Boolean(dark));
   }, []);
   const handleSearch = async () => {
     try {
