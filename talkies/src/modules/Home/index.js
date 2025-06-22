@@ -34,30 +34,47 @@ const Home = () => {
   const [search, setSearch] = useState("");
   useEffect(() => {
     const token = localStorage.getItem("user:token");
-    setIsToken(!!token);
-    console.log(isToken);
+    const dark = localStorage.getItem("dark");
 
-    const fetchPosts = async () => {
-      const response = await fetch(
-        `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("user:token")}`,
-          },
+    setDarkMode(Boolean(dark));
+
+    if (token) {
+      setIsToken(true);
+
+      const fetchPosts = async () => {
+        try {
+          setLoading(true);
+          const response = await fetch(
+            `${process.env.REACT_APP_API_BASE_URL}/api/posts`,
+            {
+              method: "GET",
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (!response.ok) {
+            throw new Error("Failed to fetch posts");
+          }
+
+          const data1 = await response.json();
+          setData(data1.post1 || []);
+          setUser(data1.user || {});
+        } catch (error) {
+          console.error("❌ Fetch error:", error.message);
+          setMsg("Failed to load posts.");
+        } finally {
+          setLoading(false);
         }
-      );
-      const data1 = await response.json();
-      setData(data1.post1);
-      setUser(data1.user);
-      setLoading(false);
-    };
-    if (isToken) {
+      };
+
       fetchPosts();
+    } else {
+      setIsToken(false);
     }
-    setDarkMode(Boolean(localStorage.getItem("dark")));
-  }, [isToken]);
+  }, []);
   const handleSearch = async () => {
     try {
       const response = await fetch(
