@@ -1,5 +1,7 @@
 import { io } from "socket.io-client";
 
-const socket = io(process.env.REACT_APP_API_BASE_URL);
-
+const socket = io("https://talkies-backend.onrender.com", {
+  transports: ["websocket", "polling"],
+  withCredentials: true,
+});
 export default socket;

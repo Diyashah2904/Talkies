@@ -30,7 +30,6 @@ app.use(
 );
 require("dotenv").config();
 const port = process.env.PORT;
-const new_port = process.env.NEW_PORT;
 app.get("/", (req, res) => {
   res.send("Hello world");
 });
@@ -39,6 +38,7 @@ const io = new Server(server, {
   cors: {
     origin: `https://instagram-clone-talkies.vercel.app`,
     methods: ["GET", "POST"],
+    credentials: true,
   },
 });
 app.use(express.json());
@@ -199,8 +199,8 @@ app.post("/api/sendOTP", async (req, res, next) => {
     res.status(500).send("Server Error");
   }
 });
-server.listen(5000, () => {
-  console.log("Server listening on port 5000");
+server.listen(8000, () => {
+  console.log("Server listening on port 8000");
 });
 app.post("/api/verifyOTP", async (req, res, next) => {
   try {
