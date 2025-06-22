@@ -47,7 +47,7 @@ const Form = ({
   }
   return (
     <div className='bg-[#d2cfdf] h-screen w-full flex justify-center items-center'>
-        <div className='h-[70%] w-[70%] bg-white flex justify-center items-center'>
+        <div className='h-[75%] w-[70%] bg-white flex justify-center items-center'>
             <div className={`h-full w-full flex flex-col justify-center items-center ${!isSignInPage && 'order-2'}`}>
                 <div className='text-4xl font-serif text-4xl font-bold'>WELCOME {isSignInPage && 'BACK'}</div>
                 <div className='mb-[7%] font-sans text-xl'>Please {isSignInPage ?'Login':'Sign Up'} to continue</div>
