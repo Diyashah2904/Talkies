@@ -58,7 +58,6 @@
 
 ### Frontend
 - React.js
-- Axios
 - Socket.IO Client
 - Tailwind CSS / CSS Modules
 
@@ -66,7 +65,7 @@
 - Node.js + Express.js
 - MongoDB + Mongoose
 - JWT (Authentication)
-- Multer + Cloudinary (Image/Video Uploads)
+- Cloudinary (Image/Video Uploads)
 - Socket.IO Server
 
 ---
