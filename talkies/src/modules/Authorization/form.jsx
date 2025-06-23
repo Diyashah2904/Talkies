@@ -20,7 +20,9 @@ const Form = ({
       method:'POST',
       headers:{
         'Content-Type':'application/json',
-        Authorization: `Bearer ${localStorage.getItem('user:token')}`
+        ...(isSignInPage && {
+          Authorization: `Bearer ${localStorage.getItem('user:token')}`
+        })
       },
       body:JSON.stringify({...data})
     })
