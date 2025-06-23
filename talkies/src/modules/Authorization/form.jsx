@@ -41,7 +41,7 @@ const Form = ({
       navigate("/account/signin");
     }
     else if(res.status===400){
-      alert("Username already exists");
+      alert("Username or email already exists");
     }
     else{
       alert("Error,Please try later");
