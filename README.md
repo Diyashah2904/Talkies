@@ -3,7 +3,8 @@
 **Talkies** is a full-featured real-time Instagram clone built with the MERN stack. It replicates core functionalities of Instagram and WhatsApp, featuring real-time chatting, media sharing (images/videos), personalized feed, user search, private accounts, and much more—all in a clean, interactive UI.
 
 ---
-
+## Live at
+### https://instagram-clone-talkies.vercel.app/
 ## 🌟 Features
 
 ### 🔐 User Authentication
