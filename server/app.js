@@ -108,18 +108,18 @@ app.post("/api/register", async (req, res) => {
     if (!userName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
     }
-    const existingEmail = await User.findOne({ email });
+    const existingEmail = await Users.findOne({ email });
     if (existingEmail) {
       return res.status(400).json({ message: "Email already in use" });
     }
 
-    const existingUserName = await User.findOne({ userName });
+    const existingUserName = await Users.findOne({ userName });
     if (existingUserName) {
       return res.status(400).json({ message: "Username already exists" });
     }
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const user = new User({
+    const user = new Users({
       userName,
       email,
       password: hashedPassword,
