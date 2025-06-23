@@ -102,7 +102,41 @@ const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
+app.post("/register", async (req, res) => {
+  try {
+    const { userName, email, password, profilePic } = req.body;
 
+    if (!userName || !email || !password) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    const existingEmail = await User.findOne({ email });
+    if (existingEmail) {
+      return res.status(400).json({ message: "Email already in use" });
+    }
+
+    const existingUserName = await User.findOne({ userName });
+    if (existingUserName) {
+      return res.status(400).json({ message: "Username already exists" });
+    }
+
+    const user = new User({
+      userName,
+      email,
+      password: hashedPassword,
+    });
+
+    await user.save();
+
+    return res.status(200).json({
+      message: "Registered successfully",
+    });
+  } catch (err) {
+    console.error("Register error:", err);
+    return res
+      .status(500)
+      .json({ message: "Server error", error: err.message });
+  }
+});
 app.post("/api/sendMsg", authenticate, async (req, res) => {
   try {
     const { user } = req;
