@@ -103,7 +103,7 @@ server.listen(PORT, () => {
 });
 app.post("/api/register", async (req, res) => {
   try {
-    const { userName, email, password, profilePic } = req.body;
+    const { userName, email, password } = req.body;
 
     if (!userName || !email || !password) {
       return res.status(400).json({ message: "All fields are required" });
@@ -117,6 +117,7 @@ app.post("/api/register", async (req, res) => {
     if (existingUserName) {
       return res.status(400).json({ message: "Username already exists" });
     }
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const user = new User({
       userName,
