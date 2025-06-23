@@ -101,7 +101,7 @@ const PORT = process.env.PORT || 8000;
 server.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);
 });
-app.post("/app/register", async (req, res) => {
+app.post("/api/register", async (req, res) => {
   try {
     const { userName, email, password, profilePic } = req.body;
 
